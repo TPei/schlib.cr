@@ -21,12 +21,12 @@ module Schlib
 
     def run(command, raise_errors = false)
       @logger.as(Logger).debug(command) if @logger
-      output = Process.run `#{command}`
+      output = `#{command}`
+      @logger.as(Logger).debug(output) if @logger
       status = $?
       if raise_errors && !status.success?
         raise ScriptError.new "COMMAND FAILED!"
       end
-      @logger.as(Logger).debug(output) if @logger
       output
     end
   end
