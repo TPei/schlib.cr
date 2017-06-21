@@ -1,3 +1,5 @@
+require "logger"
+
 module Schlib
   # Executes a command on the shell and returns the output
   # Optionally, provide your custom logger to logg executions
@@ -30,10 +32,6 @@ module Schlib
       output
     end
   end
-end
-
-abstract class Logger
-  abstract def debug(logline : String)
 end
 
 class ScriptError < Exception; end

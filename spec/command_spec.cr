@@ -14,7 +14,7 @@ describe Schlib::Command do
     end
 
     it "logs command and output even when failing and raising" do
-      logger = MyLogger.new
+      logger = MyLogger.new(STDOUT)
 
       expect_raises(LoggerError) do
         Schlib::Command.new(logger).run("wtf", raise_errors: true)
