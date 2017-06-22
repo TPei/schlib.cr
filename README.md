@@ -83,7 +83,7 @@ Have a long running command? Use spinner to entertain.
 ```crystal
 require "schlib/spinner"
 
-Schlib::Spinner.new.wait_for do # .new is important atm!!
+Schlib::Spinner.wait_for do
   sleep 2
   "well-rested"
 end

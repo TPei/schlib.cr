@@ -73,8 +73,7 @@
 
 <pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;schlib/spinner&quot;</span>
 
-<span class="c"># Having a dedicated spinner instance &#40;.new&#41; is required atm</span>
-<span class="t">Schlib</span><span class="t">::</span><span class="t">Spinner</span>.<span class="k">new</span>.wait_for <span class="k">do</span>
+<span class="t">Schlib</span><span class="t">::</span><span class="t">Spinner</span>.wait_for <span class="k">do</span>
   sleep <span class="n">2</span>
   <span class="s">&quot;well-rested&quot;</span>
 <span class="k">end</span>
@@ -98,7 +97,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/TPei/schlib.cr/blob/f7b6b886749313c18e89d120a78c432bc09d035e/src/schlib/spinner.cr#L16" target="_blank">schlib/spinner.cr</a>
+      <a href="https://github.com/TPei/schlib.cr/blob/704f5a434006e245d0b04d8598d83f1e7605ecae/src/schlib/spinner.cr#L15" target="_blank">schlib/spinner.cr</a>
     
     <br/>
   
@@ -118,6 +117,8 @@
       <li class="entry-summary">
         <a href="#wait_for%28%26block%29-class-method" class="signature"><strong>.wait_for</strong>(&block)</a>
         
+          <div class="summary"><p>shows a spinner while executing the block return the block return value</p></div>
+        
       </li>
     
   </ul>
@@ -129,6 +130,8 @@
     
       <li class="entry-summary">
         <a href="#wait_for%28%26block%29-instance-method" class="signature"><strong>#wait_for</strong>(&block)</a>
+        
+          <div class="summary"><p>always create a new instance for every spinner best to use <code><a href="../Schlib/Spinner.html#wait_for%28%26block%29-class-method">Schlib::Spinner.wait_for</a></code></p></div>
         
       </li>
     
@@ -170,7 +173,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/TPei/schlib.cr/blob/f7b6b886749313c18e89d120a78c432bc09d035e/src/schlib/spinner.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/TPei/schlib.cr/blob/704f5a434006e245d0b04d8598d83f1e7605ecae/src/schlib/spinner.cr#L16" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -183,10 +186,13 @@
         <a class="method-permalink" href="#wait_for%28%26block%29-class-method">#</a>
       </div>
       
+        <div class="doc"><p>shows a spinner while executing the block
+return the block return value</p></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/TPei/schlib.cr/blob/f7b6b886749313c18e89d120a78c432bc09d035e/src/schlib/spinner.cr#L21" target="_blank">View source</a>]
+          [<a href="https://github.com/TPei/schlib.cr/blob/704f5a434006e245d0b04d8598d83f1e7605ecae/src/schlib/spinner.cr#L22" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -204,10 +210,13 @@
         <a class="method-permalink" href="#wait_for%28%26block%29-instance-method">#</a>
       </div>
       
+        <div class="doc"><p>always create a new instance for every spinner
+best to use <code><a href="../Schlib/Spinner.html#wait_for%28%26block%29-class-method">Schlib::Spinner.wait_for</a></code></p></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/TPei/schlib.cr/blob/f7b6b886749313c18e89d120a78c432bc09d035e/src/schlib/spinner.cr#L26" target="_blank">View source</a>]
+          [<a href="https://github.com/TPei/schlib.cr/blob/704f5a434006e245d0b04d8598d83f1e7605ecae/src/schlib/spinner.cr#L28" target="_blank">View source</a>]
         
       </div>
     </div>

@@ -10,9 +10,7 @@ describe Schlib::Spinner do
 
   describe ".wait_for" do
     it "returns the result of the block" do
-      pending "waiting for fix" do
-        Schlib::Spinner.wait_for { 1 }.should eq 1
-      end
+      Schlib::Spinner.wait_for { 1 }.should eq 1
     end
   end
 end

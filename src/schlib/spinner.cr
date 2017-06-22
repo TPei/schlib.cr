@@ -4,8 +4,7 @@ module Schlib
   # ```crystal
   # require "schlib/spinner"
   #
-  # # Having a dedicated spinner instance (.new) is required atm
-  # Schlib::Spinner.new.wait_for do
+  # Schlib::Spinner.wait_for do
   #   sleep 2
   #   "well-rested"
   # end
@@ -18,11 +17,14 @@ module Schlib
       @finished = false
     end
 
-    def self.wait_for(&block)
-      # TODO: fix -> returns Nil
-      self.new.wait_for &block
+    # shows a spinner while executing the block
+    # return the block return value
+    def self.wait_for
+      self.new.wait_for { yield }
     end
 
+    # always create a new instance for every spinner
+    # best to use `Schlib::Spinner.wait_for`
     def wait_for
       create_spinner_fiber
       value = yield
