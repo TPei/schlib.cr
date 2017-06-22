@@ -37,6 +37,7 @@ describe Schlib::Cache do
         c.clear
 
         `ls folder`.should eq ""
+        `rmdir folder`
       end
     end
   end
