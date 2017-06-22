@@ -1,8 +1,0 @@
-AllCops:
-  TargetRubyVersion: 2.3
-
-Style/Documentation:
-  Enabled: false
-
-Metrics/MethodLength:
-  Max: 15
