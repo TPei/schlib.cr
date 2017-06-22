@@ -34,27 +34,20 @@ All cached data must work with JSON::Type
 ```crystal
 require "schlib/cache"
 
-c = Schlib::Cache.new("/tmp/my_cache_file.tmp")
-
-def calc_pi(n)
-  # this caclulation of pi may not be correct :D
-  if n <= 1
-    4.0
-  elsif n.even?
-    calc_pi(n - 1) + 4.0 / (n * 2 + 1)
-  elsif n.odd?
-    calc_pi(n - 1) - 4.0 / (n * 2 + 1)
-  end
+def super_long_running_method
+  sleep 10
+  "wow, so long!"
 end
 
-def precise_pi
+def complicated_stuff
+  c = Schlib::Cache.new("/tmp/my_cache_file.tmp")
   c.cache(:precise_pi) do
-    calc_pi 100_000_000_000
+    super_long_running_method
   end
 end
 
-precise_pi # first call takes long time
-precise_pi # successive calls are fast
+puts complicated_stuff # first call takes long time
+puts complicated_stuff # successive calls are fast
 ```
 
 ### Command
@@ -66,16 +59,19 @@ raising exceptions on bad exitcodes.
 require "logger"
 require "schlib/command"
 
-c0 = Schlib::Command.new
-c0.run "wtf", raise_error: true
-# ScriptError: COMMAND FAILED!
+Schlib::Command.new.run("wtf", raise_errors: true)
+# COMMAND FAILED! (ScriptError)
+# 0x101806195: *CallStack::unwind:Array(Pointer(Void)) at ??
+# 0x101806131: *CallStack#initialize:Array(Pointer(Void)) at ??
+# 0x101806108: *CallStack::new:CallStack at ??
+# 0x101805211: *raise<ScriptError>:NoReturn at ??
+# 0x101872b06: *Schlib::Command#run<String, Bool>:String at ??
+# 0x1017f2c72: __crystal_main at ??
+# 0x101802b58: main at ??
 
 logger = Logger.new(STDOUT)
-Command.new(logger).run "wtf????"
-# D, [2017-01-28T11:51:08.387088 #29538] DEBUG -- : wtf???
-# D, [2017-01-28T11:51:08.388694 #29538] DEBUG -- : sh: 1: wtf???: not found
-#
-# => "sh: 1: wtf???: not found\n"
+Schlib::Command.new(logger).run "wtf????"
+# --: wtf????: command not found
 ```
 
 ### Spinner
@@ -89,7 +85,7 @@ require "schlib/spinner"
 
 Schlib::Spinner.new.wait_for do # .new is important atm!!
   sleep 2
-  return "well-rested"
+  "well-rested"
 end
 # Loading ▇ ... done
 #

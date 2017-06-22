@@ -76,27 +76,20 @@ All cached data must work with JSON::Type</p>
 
 <pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;schlib/cache&quot;</span>
 
-c <span class="o">=</span> <span class="t">Schlib</span><span class="t">::</span><span class="t">Cache</span>.<span class="k">new</span>(<span class="s">&quot;/tmp/my_cache_file.tmp&quot;</span>)
-
-<span class="k">def</span> <span class="m">calc_pi</span>(n)
-  <span class="c"># this caclulation of pi may not be correct :D</span>
-  <span class="k">if</span> n <span class="o"><=</span> <span class="n">1</span>
-    <span class="n">4.0</span>
-  <span class="k">elsif</span> n.even?
-    calc_pi(n <span class="o">-</span> <span class="n">1</span>) <span class="o">+</span> <span class="n">4.0</span> <span class="o">/</span> (n <span class="o">*</span> <span class="n">2</span> <span class="o">+</span> <span class="n">1</span>)
-  <span class="k">elsif</span> n.odd?
-    calc_pi(n <span class="o">-</span> <span class="n">1</span>) <span class="o">-</span> <span class="n">4.0</span> <span class="o">/</span> (n <span class="o">*</span> <span class="n">2</span> <span class="o">+</span> <span class="n">1</span>)
-  <span class="k">end</span>
+<span class="k">def</span> <span class="m">super_long_running_method</span>
+  sleep <span class="n">10</span>
+  <span class="s">&quot;wow, so long&#33;&quot;</span>
 <span class="k">end</span>
 
-<span class="k">def</span> <span class="m">precise_pi</span>
+<span class="k">def</span> <span class="m">complicated_stuff</span>
+  c <span class="o">=</span> <span class="t">Schlib</span><span class="t">::</span><span class="t">Cache</span>.<span class="k">new</span>(<span class="s">&quot;/tmp/my_cache_file.tmp&quot;</span>)
   c.cache(<span class="n">:precise_pi</span>) <span class="k">do</span>
-    calc_pi <span class="n">100_000_000_000</span>
+    super_long_running_method
   <span class="k">end</span>
 <span class="k">end</span>
 
-precise_pi <span class="c"># first call takes long time</span>
-precise_pi <span class="c"># successive calls are fast</span></code></pre>
+puts complicated_stuff <span class="c"># first call takes long time</span>
+puts complicated_stuff <span class="c"># successive calls are fast</span></code></pre>
 
 
 
@@ -114,7 +107,7 @@ precise_pi <span class="c"># successive calls are fast</span></code></pre>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/TPei/schlib.cr/blob/9d3fd30cb9616ce6728addb67cb8a01182cf4ec4/src/schlib/cache.cr#L34" target="_blank">schlib/cache.cr</a>
+      <a href="https://github.com/TPei/schlib.cr/blob/f7b6b886749313c18e89d120a78c432bc09d035e/src/schlib/cache.cr#L27" target="_blank">schlib/cache.cr</a>
     
     <br/>
   
@@ -191,7 +184,7 @@ precise_pi <span class="c"># successive calls are fast</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/TPei/schlib.cr/blob/9d3fd30cb9616ce6728addb67cb8a01182cf4ec4/src/schlib/cache.cr#L35" target="_blank">View source</a>]
+          [<a href="https://github.com/TPei/schlib.cr/blob/f7b6b886749313c18e89d120a78c432bc09d035e/src/schlib/cache.cr#L28" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -212,7 +205,7 @@ precise_pi <span class="c"># successive calls are fast</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/TPei/schlib.cr/blob/9d3fd30cb9616ce6728addb67cb8a01182cf4ec4/src/schlib/cache.cr#L38" target="_blank">View source</a>]
+          [<a href="https://github.com/TPei/schlib.cr/blob/f7b6b886749313c18e89d120a78c432bc09d035e/src/schlib/cache.cr#L31" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -228,7 +221,7 @@ precise_pi <span class="c"># successive calls are fast</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/TPei/schlib.cr/blob/9d3fd30cb9616ce6728addb67cb8a01182cf4ec4/src/schlib/cache.cr#L45" target="_blank">View source</a>]
+          [<a href="https://github.com/TPei/schlib.cr/blob/f7b6b886749313c18e89d120a78c432bc09d035e/src/schlib/cache.cr#L38" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -244,7 +237,7 @@ precise_pi <span class="c"># successive calls are fast</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/TPei/schlib.cr/blob/9d3fd30cb9616ce6728addb67cb8a01182cf4ec4/src/schlib/cache.cr#L51" target="_blank">View source</a>]
+          [<a href="https://github.com/TPei/schlib.cr/blob/f7b6b886749313c18e89d120a78c432bc09d035e/src/schlib/cache.cr#L44" target="_blank">View source</a>]
         
       </div>
     </div>

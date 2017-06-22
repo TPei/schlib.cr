@@ -7,7 +7,7 @@ module Schlib
   # # Having a dedicated spinner instance (.new) is required atm
   # Schlib::Spinner.new.wait_for do
   #   sleep 2
-  #   return "well-rested"
+  #   "well-rested"
   # end
   # # Loading ▇ ... done
   #

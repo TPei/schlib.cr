@@ -86,27 +86,20 @@ All cached data must work with JSON::Type</p>
 
 <pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;schlib/cache&quot;</span>
 
-c <span class="o">=</span> <span class="t">Schlib</span><span class="t">::</span><span class="t">Cache</span>.<span class="k">new</span>(<span class="s">&quot;/tmp/my_cache_file.tmp&quot;</span>)
-
-<span class="k">def</span> <span class="m">calc_pi</span>(n)
-  <span class="c"># this caclulation of pi may not be correct :D</span>
-  <span class="k">if</span> n <span class="o"><=</span> <span class="n">1</span>
-    <span class="n">4.0</span>
-  <span class="k">elsif</span> n.even?
-    calc_pi(n <span class="o">-</span> <span class="n">1</span>) <span class="o">+</span> <span class="n">4.0</span> <span class="o">/</span> (n <span class="o">*</span> <span class="n">2</span> <span class="o">+</span> <span class="n">1</span>)
-  <span class="k">elsif</span> n.odd?
-    calc_pi(n <span class="o">-</span> <span class="n">1</span>) <span class="o">-</span> <span class="n">4.0</span> <span class="o">/</span> (n <span class="o">*</span> <span class="n">2</span> <span class="o">+</span> <span class="n">1</span>)
-  <span class="k">end</span>
+<span class="k">def</span> <span class="m">super_long_running_method</span>
+  sleep <span class="n">10</span>
+  <span class="s">&quot;wow, so long&#33;&quot;</span>
 <span class="k">end</span>
 
-<span class="k">def</span> <span class="m">precise_pi</span>
+<span class="k">def</span> <span class="m">complicated_stuff</span>
+  c <span class="o">=</span> <span class="t">Schlib</span><span class="t">::</span><span class="t">Cache</span>.<span class="k">new</span>(<span class="s">&quot;/tmp/my_cache_file.tmp&quot;</span>)
   c.cache(<span class="n">:precise_pi</span>) <span class="k">do</span>
-    calc_pi <span class="n">100_000_000_000</span>
+    super_long_running_method
   <span class="k">end</span>
 <span class="k">end</span>
 
-precise_pi <span class="c"># first call takes long time</span>
-precise_pi <span class="c"># successive calls are fast</span></code></pre>
+puts complicated_stuff <span class="c"># first call takes long time</span>
+puts complicated_stuff <span class="c"># successive calls are fast</span></code></pre>
 
 <h3>Command</h3>
 
@@ -116,16 +109,19 @@ raising exceptions on bad exitcodes.</p>
 <pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;logger&quot;</span>
 <span class="k">require</span> <span class="s">&quot;schlib/command&quot;</span>
 
-c0 <span class="o">=</span> <span class="t">Schlib</span><span class="t">::</span><span class="t">Command</span>.<span class="k">new</span>
-c0.run <span class="s">&quot;wtf&quot;</span>, raise_error: <span class="n">true</span>
-<span class="c"># ScriptError: COMMAND FAILED&#33;</span>
+<span class="t">Schlib</span><span class="t">::</span><span class="t">Command</span>.<span class="k">new</span>.run(<span class="s">&quot;wtf&quot;</span>, raise_errors: <span class="n">true</span>)
+<span class="c"># COMMAND FAILED&#33; &#40;ScriptError&#41;</span>
+<span class="c"># 0x101806195: *CallStack::unwind:Array&#40;Pointer&#40;Void&#41;&#41; at ??</span>
+<span class="c"># 0x101806131: *CallStack#initialize:Array&#40;Pointer&#40;Void&#41;&#41; at ??</span>
+<span class="c"># 0x101806108: *CallStack::new:CallStack at ??</span>
+<span class="c"># 0x101805211: *raise&lt;ScriptError&gt;:NoReturn at ??</span>
+<span class="c"># 0x101872b06: *Schlib::Command#run&lt;String, Bool&gt;:String at ??</span>
+<span class="c"># 0x1017f2c72: __crystal_main at ??</span>
+<span class="c"># 0x101802b58: main at ??</span>
 
 logger <span class="o">=</span> <span class="t">Logger</span>.<span class="k">new</span>(<span class="t">STDOUT</span>)
-<span class="t">Command</span>.<span class="k">new</span>(logger).run <span class="s">&quot;wtf????&quot;</span>
-<span class="c"># D, &#91;2017-01-28T11:51:08.387088 #29538&#93; DEBUG -- : wtf???</span>
-<span class="c"># D, &#91;2017-01-28T11:51:08.388694 #29538&#93; DEBUG -- : sh: 1: wtf???: not found</span>
-<span class="c">#</span>
-<span class="c"># &#61;&gt; &quot;sh: 1: wtf???: not found\n&quot;</span></code></pre>
+<span class="t">Schlib</span><span class="t">::</span><span class="t">Command</span>.<span class="k">new</span>(logger).run <span class="s">&quot;wtf????&quot;</span>
+<span class="c"># --: wtf????: command not found</span></code></pre>
 
 <h3>Spinner</h3>
 
@@ -137,7 +133,7 @@ logger <span class="o">=</span> <span class="t">Logger</span>.<span class="k">ne
 
 <span class="t">Schlib</span><span class="t">::</span><span class="t">Spinner</span>.<span class="k">new</span>.wait_for <span class="k">do</span> <span class="c"># .new is important atm&#33;&#33;</span>
   sleep <span class="n">2</span>
-  <span class="k">return</span> <span class="s">&quot;well-rested&quot;</span>
+  <span class="s">&quot;well-rested&quot;</span>
 <span class="k">end</span>
 <span class="c"># Loading ▇ ... done</span>
 <span class="c">#</span>

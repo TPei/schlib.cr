@@ -15,7 +15,6 @@ module Schlib
   # ```
   # you can also signify that you want an error to be raised if your command execution failes
   # Schlib::Command.new.run("git flog", raise_errors: true)
-  #
   # ```
   class Command
     def initialize(@logger : (Logger | Nil) = nil)
