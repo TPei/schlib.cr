@@ -89,7 +89,7 @@ require "schlib/spinner"
 
 Schlib::Spinner.new.wait_for do # .new is important atm!!
   sleep 2
-  return 'well-rested'
+  return "well-rested"
 end
 # Loading ▇ ... done
 #
