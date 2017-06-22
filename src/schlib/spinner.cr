@@ -1,4 +1,18 @@
 module Schlib
+  # Have a long running command? Use spinner to entertain.
+  #
+  # ```crystal
+  # require "schlib/spinner"
+  #
+  # # Having a dedicated spinner instance (.new) is required atm
+  # Schlib::Spinner.new.wait_for do
+  #   sleep 2
+  #   return 'well-rested'
+  # end
+  # # Loading ▇ ... done
+  #
+  # # => "well-rested"
+  # ```
   class Spinner
     def initialize
       @finished = false
