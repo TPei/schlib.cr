@@ -4,7 +4,7 @@ require "../src/schlib/command"
 describe Schlib::Command do
   describe "#run" do
     it "returns the output of the command" do
-      Schlib::Command.new.run("ls src/").should eq "schlib\n"
+      Schlib::Command.new.run("ls src/").should eq "schlib\nschlib.cr\n"
     end
 
     it "raises an error if raising is enabled" do
