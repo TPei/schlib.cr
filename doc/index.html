@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta id="repository-name" content="github.com/TPei/schlib.cr">
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="js/doc.js"></script>
+  <title>README - github.com/TPei/schlib.cr</title>
+</head>
+<body>
+
+<div id="types-list">
+  <div id="search-box">
+    <input type="search" id="search-input" placeholder="Search...">
+  </div>
+
+  <ul>
+    <li class="current"><a href="index.html">README</a></li>
+  </ul>
+
+  <ul>
+  
+  <li class="parent " data-id="github.com/TPei/schlib.cr/Schlib" data-name="schlib">
+      <a href="Schlib.html">Schlib</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/TPei/schlib.cr/Schlib/Cache" data-name="schlib::cache">
+      <a href="Schlib/Cache.html">Cache</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/TPei/schlib.cr/Schlib/Command" data-name="schlib::command">
+      <a href="Schlib/Command.html">Command</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/TPei/schlib.cr/Schlib/Spinner" data-name="schlib::spinner">
+      <a href="Schlib/Spinner.html">Spinner</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/TPei/schlib.cr/ScriptError" data-name="scripterror">
+      <a href="ScriptError.html">ScriptError</a>
+      
+    </li>
+  
+</ul>
+
+</div>
+
+<div id="main-content">
+<p><a href="https://travis-ci.org/TPei/schlib.cr" target="_blank"><img src="https://travis-ci.org/TPei/schlib.cr.svg?branch=master" alt="Build Status"/></a>
+<img src="https://github.com/schasse/schlib/blob/master/logo/schlib_logo.png" alt=""/></p>
+
+<p><code>schlib.cr</code> is a library with selected useful classes.</p>
+
+<h2>Installation</h2>
+
+<p>Add to your shard.yml</p>
+
+<pre><code class='language-yaml'>dependencies:
+  circuit_breaker:
+    github: tpei/circuit_breaker
+    branch: master</code></pre>
+
+<p>and then install the library into your project with</p>
+
+<pre><code class='language-bash'>$ crystal deps</code></pre>
+
+<h2>Usage</h2>
+
+<p>This shard consists of several helper classes. Require them and use them.</p>
+
+<h3>Cache</h3>
+
+<p>Cache helps to cache long running computations or I/O. It acts similar
+to Rails' cache and persists to a file. It is only possible to cache
+simple data structures like Array, String, Integer, etc...
+All cached data must work with JSON::Type</p>
+
+<pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;schlib/cache&quot;</span>
+
+c <span class="o">=</span> <span class="t">Schlib</span><span class="t">::</span><span class="t">Cache</span>.<span class="k">new</span>(<span class="s">&quot;/tmp/my_cache_file.tmp&quot;</span>)
+
+<span class="k">def</span> <span class="m">calc_pi</span>(n)
+  <span class="c"># this caclulation of pi may not be correct :D</span>
+  <span class="k">if</span> n <span class="o"><=</span> <span class="n">1</span>
+    <span class="n">4.0</span>
+  <span class="k">elsif</span> n.even?
+    calc_pi(n <span class="o">-</span> <span class="n">1</span>) <span class="o">+</span> <span class="n">4.0</span> <span class="o">/</span> (n <span class="o">*</span> <span class="n">2</span> <span class="o">+</span> <span class="n">1</span>)
+  <span class="k">elsif</span> n.odd?
+    calc_pi(n <span class="o">-</span> <span class="n">1</span>) <span class="o">-</span> <span class="n">4.0</span> <span class="o">/</span> (n <span class="o">*</span> <span class="n">2</span> <span class="o">+</span> <span class="n">1</span>)
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="m">precise_pi</span>
+  c.cache(<span class="n">:precise_pi</span>) <span class="k">do</span>
+    calc_pi <span class="n">100_000_000_000</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+precise_pi <span class="c"># first call takes long time</span>
+precise_pi <span class="c"># successive calls are fast</span></code></pre>
+
+<h3>Command</h3>
+
+<p>Command is a wrapper around crystal's backticks and enables logging and
+raising exceptions on bad exitcodes.</p>
+
+<pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;logger&quot;</span>
+<span class="k">require</span> <span class="s">&quot;schlib/command&quot;</span>
+
+c0 <span class="o">=</span> <span class="t">Schlib</span><span class="t">::</span><span class="t">Command</span>.<span class="k">new</span>
+c0.run <span class="s">&quot;wtf&quot;</span>, raise_error: <span class="n">true</span>
+<span class="c"># ScriptError: COMMAND FAILED&#33;</span>
+
+logger <span class="o">=</span> <span class="t">Logger</span>.<span class="k">new</span>(<span class="t">STDOUT</span>)
+<span class="t">Command</span>.<span class="k">new</span>(logger).run <span class="s">&quot;wtf????&quot;</span>
+<span class="c"># D, &#91;2017-01-28T11:51:08.387088 #29538&#93; DEBUG -- : wtf???</span>
+<span class="c"># D, &#91;2017-01-28T11:51:08.388694 #29538&#93; DEBUG -- : sh: 1: wtf???: not found</span>
+<span class="c">#</span>
+<span class="c"># &#61;&gt; &quot;sh: 1: wtf???: not found\n&quot;</span></code></pre>
+
+<h3>Spinner</h3>
+
+<p><img src="https://github.com/schasse/schlib/raw/master/spinner.gif" alt="spinner animation"/></p>
+
+<p>Have a long running command? Use spinner to entertain.</p>
+
+<pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;schlib/spinner&quot;</span>
+
+<span class="t">Schlib</span><span class="t">::</span><span class="t">Spinner</span>.<span class="k">new</span>.wait_for <span class="k">do</span> <span class="c"># .new is important atm&#33;&#33;</span>
+  sleep <span class="n">2</span>
+  <span class="k">return</span> </code></pre>
+
+<h2>Contributing</h2>
+
+<p>Bug reports and pull requests are welcome on GitHub at
+https://github.com/tpei/schlib.cr. This project is intended to be a
+safe, welcoming space for collaboration, and contributors are expected
+to adhere to
+the <a href="http://contributor-covenant.org" target="_blank">Contributor Covenant</a> code of
+conduct.</p>
+
+<h2>License</h2>
+
+<p>The gem is available as open source under the terms of
+the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT License</a>.</p>
+</div>
+</body>
+</html>

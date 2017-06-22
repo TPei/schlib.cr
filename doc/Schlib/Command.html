@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta id="repository-name" content="github.com/TPei/schlib.cr">
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="../js/doc.js"></script>
+  <title>Schlib::Command - github.com/TPei/schlib.cr</title>
+</head>
+<body>
+
+<div id="types-list">
+  <div id="search-box">
+    <input type="search" id="search-input" placeholder="Search...">
+  </div>
+
+  <ul>
+    <li><a href="../index.html">README</a></li>
+  </ul>
+
+  <ul>
+  
+  <li class="parent open current" data-id="github.com/TPei/schlib.cr/Schlib" data-name="schlib">
+      <a href="../Schlib.html">Schlib</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/TPei/schlib.cr/Schlib/Cache" data-name="schlib::cache">
+      <a href="../Schlib/Cache.html">Cache</a>
+      
+    </li>
+  
+  <li class=" current" data-id="github.com/TPei/schlib.cr/Schlib/Command" data-name="schlib::command">
+      <a href="../Schlib/Command.html">Command</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/TPei/schlib.cr/Schlib/Spinner" data-name="schlib::spinner">
+      <a href="../Schlib/Spinner.html">Spinner</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/TPei/schlib.cr/ScriptError" data-name="scripterror">
+      <a href="../ScriptError.html">ScriptError</a>
+      
+    </li>
+  
+</ul>
+
+</div>
+
+<div id="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> Schlib::Command
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Schlib/Command.html">Schlib::Command</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>Overview</h2>
+
+  <p>Executes a command on the shell and returns the output
+Optionally, provide your custom logger to logg executions</p>
+
+<pre><code><span class="t">Executes</span> a command on the shell and returns the output
+<span class="k">class</span> <span class="t">MyLogger</span> <span class="o"><</span> <span class="t">Logger</span>
+  <span class="k">def</span> <span class="m">debug</span>(logline : <span class="t">String</span>)
+    puts logline
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="t">Schlib</span><span class="t">::</span><span class="t">Command</span>.<span class="k">new</span>(<span class="t">MyLogger</span>.<span class="k">new</span>).run(<span class="s">&quot;git flog&quot;</span>)</code></pre>
+
+<p>you can also signify that you want an error to be raised if your command execution failes
+Schlib::Command.new.run("git flog", raise_errors: true)</p>
+
+<pre><code></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/TPei/schlib.cr/blob/b7c68e3869b763e83fec3d25d4095f6bc285a654/src/schlib.cr/command.cr#L20" target="_blank">schlib.cr/command.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28logger%3ALogger%3F%3Dnil%29-class-method" class="signature"><strong>.new</strong>(logger : Logger? = <span class="n">nil</span>)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#run%28command%2Craise_errors%3Dfalse%29-instance-method" class="signature"><strong>#run</strong>(command, raise_errors = <span class="n">false</span>)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail" id="new&#40;logger:Logger?&#61;nil&#41;-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(logger : Logger? = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#new%28logger%3ALogger%3F%3Dnil%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/TPei/schlib.cr/blob/b7c68e3869b763e83fec3d25d4095f6bc285a654/src/schlib.cr/command.cr#L21" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="run&#40;command,raise_errors&#61;false&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>run</strong>(command, raise_errors = <span class="n">false</span>)
+
+        <a class="method-permalink" href="#run%28command%2Craise_errors%3Dfalse%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/TPei/schlib.cr/blob/b7c68e3869b763e83fec3d25d4095f6bc285a654/src/schlib.cr/command.cr#L24" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>

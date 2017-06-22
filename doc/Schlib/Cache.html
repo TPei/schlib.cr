@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta id="repository-name" content="github.com/TPei/schlib.cr">
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="../js/doc.js"></script>
+  <title>Schlib::Cache - github.com/TPei/schlib.cr</title>
+</head>
+<body>
+
+<div id="types-list">
+  <div id="search-box">
+    <input type="search" id="search-input" placeholder="Search...">
+  </div>
+
+  <ul>
+    <li><a href="../index.html">README</a></li>
+  </ul>
+
+  <ul>
+  
+  <li class="parent open current" data-id="github.com/TPei/schlib.cr/Schlib" data-name="schlib">
+      <a href="../Schlib.html">Schlib</a>
+      
+        <ul>
+  
+  <li class=" current" data-id="github.com/TPei/schlib.cr/Schlib/Cache" data-name="schlib::cache">
+      <a href="../Schlib/Cache.html">Cache</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/TPei/schlib.cr/Schlib/Command" data-name="schlib::command">
+      <a href="../Schlib/Command.html">Command</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/TPei/schlib.cr/Schlib/Spinner" data-name="schlib::spinner">
+      <a href="../Schlib/Spinner.html">Spinner</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/TPei/schlib.cr/ScriptError" data-name="scripterror">
+      <a href="../ScriptError.html">ScriptError</a>
+      
+    </li>
+  
+</ul>
+
+</div>
+
+<div id="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> Schlib::Cache
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Schlib/Cache.html">Schlib::Cache</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>Overview</h2>
+
+  <p>Cache helps to cache long running computations or I/O. It acts similar
+to Rails' cache and persists to a file. It is only possible to cache
+simple data structures like Array, String, Integer, etc...
+All cached data must work with JSON::Type</p>
+
+<pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;schlib/cache&quot;</span>
+
+c <span class="o">=</span> <span class="t">Schlib</span><span class="t">::</span><span class="t">Cache</span>.<span class="k">new</span>(<span class="s">&quot;/tmp/my_cache_file.tmp&quot;</span>)
+
+<span class="k">def</span> <span class="m">calc_pi</span>(n)
+  <span class="c"># this caclulation of pi may not be correct :D</span>
+  <span class="k">if</span> n <span class="o"><=</span> <span class="n">1</span>
+    <span class="n">4.0</span>
+  <span class="k">elsif</span> n.even?
+    calc_pi(n <span class="o">-</span> <span class="n">1</span>) <span class="o">+</span> <span class="n">4.0</span> <span class="o">/</span> (n <span class="o">*</span> <span class="n">2</span> <span class="o">+</span> <span class="n">1</span>)
+  <span class="k">elsif</span> n.odd?
+    calc_pi(n <span class="o">-</span> <span class="n">1</span>) <span class="o">-</span> <span class="n">4.0</span> <span class="o">/</span> (n <span class="o">*</span> <span class="n">2</span> <span class="o">+</span> <span class="n">1</span>)
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="m">precise_pi</span>
+  c.cache(<span class="n">:precise_pi</span>) <span class="k">do</span>
+    calc_pi <span class="n">100_000_000_000</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+precise_pi <span class="c"># first call takes long time</span>
+precise_pi <span class="c"># successive calls are fast</span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/TPei/schlib.cr/blob/b7c68e3869b763e83fec3d25d4095f6bc285a654/src/schlib.cr/cache.cr#L34" target="_blank">schlib.cr/cache.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28cache_file%3D%26quot%3B%2Ftmp%2Fschlib_cache_file.tmp%26quot%3B%29-class-method" class="signature"><strong>.new</strong>(cache_file = <span class="s">&quot;/tmp/schlib_cache_file.tmp&quot;</span>)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#cache%28cache_key%3AString%7CSymbol%2C%26block%29-instance-method" class="signature"><strong>#cache</strong>(cache_key : String | Symbol, &block)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#clear%28cache_key%3AString%7CSymbol%29-instance-method" class="signature"><strong>#clear</strong>(cache_key : String | Symbol)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#clear-instance-method" class="signature"><strong>#clear</strong></a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail" id="new&#40;cache_file&#61;&amp;quot;/tmp/schlib_cache_file.tmp&amp;quot;&#41;-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(cache_file = <span class="s">&quot;/tmp/schlib_cache_file.tmp&quot;</span>)
+
+        <a class="method-permalink" href="#new%28cache_file%3D%26quot%3B%2Ftmp%2Fschlib_cache_file.tmp%26quot%3B%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/TPei/schlib.cr/blob/b7c68e3869b763e83fec3d25d4095f6bc285a654/src/schlib.cr/cache.cr#L35" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="cache&#40;cache_key:String|Symbol,&amp;block&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>cache</strong>(cache_key : String | Symbol, &block)
+
+        <a class="method-permalink" href="#cache%28cache_key%3AString%7CSymbol%2C%26block%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/TPei/schlib.cr/blob/b7c68e3869b763e83fec3d25d4095f6bc285a654/src/schlib.cr/cache.cr#L38" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="clear&#40;cache_key:String|Symbol&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>clear</strong>(cache_key : String | Symbol)
+
+        <a class="method-permalink" href="#clear%28cache_key%3AString%7CSymbol%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/TPei/schlib.cr/blob/b7c68e3869b763e83fec3d25d4095f6bc285a654/src/schlib.cr/cache.cr#L45" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="clear-instance-method">
+      <div class="signature">
+        
+        def <strong>clear</strong>
+
+        <a class="method-permalink" href="#clear-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/TPei/schlib.cr/blob/b7c68e3869b763e83fec3d25d4095f6bc285a654/src/schlib.cr/cache.cr#L51" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>
