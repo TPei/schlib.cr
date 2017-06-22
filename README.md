@@ -9,7 +9,7 @@ Add to your shard.yml
 
 ```yaml
 dependencies:
-  circuit_breaker:
+  schlib.cr:
     github: tpei/schlib.cr
     branch: master
 ```
